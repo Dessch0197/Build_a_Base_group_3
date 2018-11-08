@@ -5,52 +5,31 @@ import java.util.Scanner;
 
 public class Search 
 {
-   //klasse variabler
-   String actor;
-   String director;
-   String seriesTitle;
-   String movie;
-   
-   public String getActor()
-   {
-      return actor; 
-   }
-   
-   public String getDirector()
-   {
-      return director;
-   }
-   
-   public String getSeries()
-   {
-      return seriesTitle;
-   }
-   
-   public String getMovie()
-   {
-      return movie;
-   }
-   
+  
+  
    public String[] searchForSeries(String serie)
    {
       String[] result= new String[1000000];
       boolean found = false;
      
-     // Menu.seriesArray.length-1, skulle bruge det,men pga fejlsøgning bruger et tal.
+     // FileDataHandler.seriesArray.length-1, skulle bruge det,men pga fejlsøgning bruger et tal.
      String id = " "; 
-      for(int i = 1; i< Menu.seriesArray.length-1; i++)
+     String genre = ""; 
+      for(int i = 1; i< FileDataHandler.seriesArray.length-1; i++)
       {
          
-         if(Menu.seriesArray[i] == null){
+         if(FileDataHandler.seriesArray[i] == null){
             break;
          }
          
-         String temp = Menu.seriesArray[i].primaryTitel;
-         //System.out.println(i + " "+ temp);Det bruger vi så vi kan finde titelen i arrayet
+         String temp = FileDataHandler.seriesArray[i].primaryTitel;
+         //System.out.println(i + " "+ temp);
+         //Det bruger vi så vi kan finde titelen i arrayet
          if (serie.equals(temp))
          {
             found= true;
-            id = Menu.seriesArray[i].tconst;
+            id = FileDataHandler.seriesArray[i].tconst;
+            genre = FileDataHandler.seriesArray[i].genre;
             break;
          }
 
@@ -58,14 +37,14 @@ public class Search
       
       String parentTconst = " ";
       int count =0;
-      for(int j = 1; j< Menu.episodeArray.length-1;j++)
+      for(int j = 1; j< FileDataHandler.episodeArray.length-1;j++)
       {
       
-         if(Menu.episodeArray[j] == null){
+         if(FileDataHandler.episodeArray[j] == null){
             break;
          }
       
-        parentTconst = Menu.episodeArray[j].parentTconst;
+        parentTconst = FileDataHandler.episodeArray[j].parentTconst;
         //System.out.println(parentTconst);
         if(("\""+parentTconst).equals(id))
         {
@@ -76,7 +55,7 @@ public class Search
       
       if(found)
       {
-          System.out.println("Series is found!: " +"Name:" + serie + " Id " + id + " Number of Episodes:" + count);
+          System.out.println("Series is found!: " +"Name:" + serie + " Id " + id + " Number of Episodes:" + count + " Genre:" + genre );
       }
       else
       {
@@ -103,6 +82,24 @@ public class Search
    
    }
    
-   
-
+    /*public String[] getSearchLog()
+      throws FileNotFoundException
+   {
+      //SL = SearchLog
+      File sl = new File("searchLog.txt");
+      Scanner scan = new Scanner(sl, "UTF-8");
+      String[] prevSearches;
+      int count = 0;
+      
+      while(scan.hasNextLine())
+      {
+         count++;
+         scan.nextLine();
+      }
+      prevSearches = new String[count];
+      for (int i=0; i=; i++)
+      {
+         
+      }
+   }*/
 }
